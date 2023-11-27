@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.topnav {
+    overflow: hidden;
+    height: 75px;
+    background-color: rgba(0, 0, 0, 0.64);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.262);
+    margin-bottom: 50px;
+}
+
+
+.topnav a {
+    float: left;
+    color: #F8E006;
+    text-align: center;
+    font-size: 25px;
+    padding: 14px 16px;
+    text-decoration: none;
+    
+}
+
+.cart {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.topnav a:hover {
+    color: #ddd;
+    color: black;
+}
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+}
+
+.searchTerm {
+    width: 100%;
+    border: 3px solid #F8E006;
+    border-right: none;
+    padding: 5px;
+    height: 46px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+}
+
+.searchTerm:focus {
+    color: #00B4CC;
+}
+
+.searchButton {
+    width: 40px;
+    height: 46px;
+    border: 1px solid #F8E006;
+    background: #F8E006;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.wrap {
+    width: 30%;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 250px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+    display: table-cell;
+}
+
+.price {
+    color: grey;
+    font-size: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    padding: 12px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.card button:hover {
+    opacity: 0.7;
+}
+
+.shirt-catalogue-row {
+    display: flex;
+    margin-bottom: 50px;
+}
