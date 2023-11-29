@@ -1,115 +1,151 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
-
-.topnav {
-    overflow: hidden;
-    height: 75px;
-    background-color: rgba(0, 0, 0, 0.64);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.262);
-    margin-bottom: 50px;
+.search-bar {
+    background-position: 10px 12px;
+    background-repeat: no-repeat;
+    width: 50%;
+    font-size: 16px;
+    padding: 12px 20px 12px 12px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+    border-radius: 25px;
 }
 
+.navbar {
+    padding: 10px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    z-index: 999;
+    background-color: #f3f4f6;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0.3);
+    top: 0%;
+}
 
-.topnav a {
-    float: left;
-    color: #F8E006;
-    text-align: center;
-    font-size: 25px;
-    padding: 14px 16px;
+.navbar .store-logo h1{
+    color: #424144;
+    border-bottom: 4px solid #f56f61;
+}
+
+.navbar .nav-elems li{
+    list-style: none;
+    display: inline-block;
+}
+
+.navbar .nav-elems li a{
+    display: block;
+    margin-left: 20px;
+    color: #424144;
+    border-bottom: 4px solid transparent;
     text-decoration: none;
-    
-}
-
-.cart {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.topnav a:hover {
-    color: #ddd;
-    color: black;
-}
-
-.search {
-    width: 100%;
-    position: relative;
-    display: flex;
-}
-
-.searchTerm {
-    width: 100%;
-    border: 3px solid #F8E006;
-    border-right: none;
-    padding: 5px;
-    height: 46px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
-}
-
-.searchTerm:focus {
-    color: #00B4CC;
-}
-
-.searchButton {
-    width: 40px;
-    height: 46px;
-    border: 1px solid #F8E006;
-    background: #F8E006;
-    text-align: center;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.wrap {
-    width: 30%;
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 250px;
-    margin: auto;
-    text-align: center;
-    font-family: arial;
-    display: table-cell;
-}
-
-.price {
-    color: grey;
-    font-size: 20px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
-
-.card button {
-    border: none;
-    outline: 0;
-    padding: 12px;
-    color: white;
-    background-color: #000;
-    text-align: center;
-    cursor: pointer;
-    width: 100%;
     font-size: 18px;
+    font-weight: bold;
 }
 
-.card button:hover {
-    opacity: 0.7;
+.navbar .nav-elems li .active {
+    border-bottom: 4px solid #f63e4e;
 }
 
-.shirt-catalogue-row {
+.navbar .nav-elems li a i{
+    color: #f63e4e
+}
+
+.welcome-section {
+    background-image: url("img/main-img.png");
+    background-size: 700px;
+    background-position: 90%;
+    background-repeat: no-repeat;
+    padding: 0 5%;
     display: flex;
-    margin-bottom: 50px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: #424144;
+    height: 100vh;
+}
+
+.welcome-section h1{
+    font-size: 40px;
+}
+
+
+.welcome-section p{
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.pheading {
+    text-align: center;
+    margin: 50px 0;
+    color: #424144;
+}
+
+.sec{
+    padding: 10px 5%;
+}
+
+.products .card{
+    width: 300px;
+    background: #f5f5f5;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.products .card img {
+    height: 250px;
+    width: 100%;
+}
+
+.products .card .desc {
+    padding: 5px 20px;
+    padding-top: 10px;
+    opacity: 0.6;
+}
+
+.products .card .title {
+    font-weight: 700;
+    font-size: 20px;
+    color: #424144;
+    padding: 5px 20px;
+}
+
+.products .card .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.products .card .box .price{
+    color: #f63e4e;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.products .card .box .btn{
+    font-size: 13px;
+    color: #f63e4e;
+    padding: 10px 18px;
+    font-weight: 900;
+    border: 1px solid #f63e4e;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.products .card .box .btn:hover{
+    cursor: pointer;
+    background-color: #f63e4e;
+    color: white ;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
