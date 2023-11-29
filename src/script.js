@@ -20,79 +20,79 @@ closeShopping[0].addEventListener('click', function(event){
 let products = [
     {
         id: 1,
-        name: 'PRODUCT NAME 1',
+        name: 'Lil Tjay Shirt',
         image: '1.png',
         price: 56
     },
     {
         id: 2,
-        name: 'PRODUCT NAME 2',
+        name: 'Green Workout Shirt',
         image: '2.png',
         price: 112
     },
     {
         id: 3,
-        name: 'PRODUCT NAME 3',
+        name: 'Gray Workout Shirt',
         image: '3.png',
         price: 24
     },
     {
         id: 4,
-        name: 'PRODUCT NAME 4',
+        name: 'Red Fullsleeves',
         image: '4.png',
         price: 38
     },
     {
         id: 5,
-        name: 'PRODUCT NAME 5',
+        name: 'Grey Tshirt',
         image: '5.png',
         price: 56
     },
     {
         id: 6,
-        name: 'PRODUCT NAME 6',
+        name: 'Yellow Fullsleeves',
         image: '6.png',
         price: 40
     },
     {
         id: 7,
-        name: 'PRODUCT NAME 7',
+        name: 'Blue Choir Shirt',
         image: '7.png',
         price: 33
     },
     {
         id: 8,
-        name: 'PRODUCT NAME 6',
+        name: 'Tan Tshirt',
         image: '8.png',
         price: 120
     },
     {
         id: 9,
-        name: 'PRODUCT NAME 6',
+        name: 'Blue Tshirt',
         image: '9.png',
         price: 145
     },
     {
         id: 10,
-        name: 'PRODUCT NAME 6',
+        name: 'Purple Polo',
         image: '10.png',
         price: 156
     },
     {
         id:11,
-        name: 'PRODUCT NAME 6',
+        name: 'Navy Tshirt',
         image: '11.png',
         price: 11
     },
     {
         id: 12,
-        name: 'PRODUCT NAME 6',
+        name: 'Hawaiian Shirt',
         image: '12.png',
         price: 40
     },
     {
         id: 13,
-        name: 'PRODUCT NAME 6',
+        name: 'Teal Tshirt',
         image: '13.png',
         price: 50
     }

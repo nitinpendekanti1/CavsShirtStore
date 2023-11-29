@@ -198,9 +198,13 @@
     width: 90%;
 }
 .listCart li button{
-    background-color: white;
-    padding-left: 5px;
-    padding-right: 5px;
+    background-color: #f56f61;
+    padding-left: 10px;
+    border-radius: 3px;
+    padding-right: 9px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 20px;
     border: none;
 }
 .listCart .count{
