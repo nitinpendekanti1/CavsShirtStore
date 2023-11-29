@@ -5,13 +5,13 @@ let listCard = document.querySelector('.listCart');
 let body = document.querySelector('body');
 let total = document.querySelector('.total');
 
-openShopping[0].addEventListener('click', function(event){
+openShopping[0].addEventListener('click', function (event) {
     event.preventDefault();
     body.classList.add('active');
     console.log("hello")
 })
 
-closeShopping[0].addEventListener('click', function(event){
+closeShopping[0].addEventListener('click', function (event) {
     event.preventDefault();
     body.classList.remove('active');
 })
@@ -79,7 +79,7 @@ let products = [
         price: 156
     },
     {
-        id:11,
+        id: 11,
         name: 'Navy Tshirt',
         image: '11.png',
         price: 11
@@ -98,11 +98,13 @@ let products = [
     }
 ];
 
-let listCards  = [];
-function initApp(){
-    products.forEach((value, key) =>{
+let listCards = [];
+let allCards = [];
+function initApp() {
+    products.forEach((value, key) => {
         let newDiv = document.createElement('div');
         newDiv.classList.add('item');
+        newDiv.id = value.id;
         newDiv.innerHTML = `
             <img src="img/${value.image}">
             <div class="title">${value.name}</div>
@@ -112,22 +114,55 @@ function initApp(){
     })
 }
 initApp();
-function addToCard(key){
-    if(listCards[key] == null){
+
+function searchResults(inputs) {
+    list.innerHTML = '';
+
+    products.forEach((value, key) => {
+        if (inputs.indexOf(value.name) > -1) {
+            let newDiv = document.createElement('div');
+            newDiv.classList.add('item');
+            newDiv.id = value.id;
+            newDiv.innerHTML = `
+            <img src="img/${value.image}">
+            <div class="title">${value.name}</div>
+            <div class="price">$${value.price.toLocaleString()}</div>
+            <button onclick="addToCard(${key})">Add to Cart</button>`;
+            list.appendChild(newDiv);
+        }
+    })
+}
+
+function search(event) {
+    if (event.keyCode === 13) {
+        
+        const inputValue = document.getElementById('input').value;
+        if(inputValue == ''){
+            list.innerHTML = ''
+            initApp();
+        } else {
+            let inputs = [inputValue];
+            searchResults(inputs);
+        }
+    }
+}
+
+function addToCard(key) {
+    if (listCards[key] == null) {
         // copy product form list to list card
         listCards[key] = JSON.parse(JSON.stringify(products[key]));
         listCards[key].quantity = 1;
     }
     reloadCard();
 }
-function reloadCard(){
+function reloadCard() {
     listCard.innerHTML = '';
     let count = 0;
     let totalPrice = 0;
-    listCards.forEach((value, key)=>{
+    listCards.forEach((value, key) => {
         totalPrice = totalPrice + value.price;
         count = count + value.quantity;
-        if(value != null){
+        if (value != null) {
             let newDiv = document.createElement('li');
             newDiv.innerHTML = `
                 <div><img src="img/${value.image}"/></div>
@@ -138,23 +173,24 @@ function reloadCard(){
                     <div class="count">${value.quantity}</div>
                     <button onclick="changeQuantity(${key}, ${value.quantity + 1})">+</button>
                 </div>`;
-                listCard.appendChild(newDiv);
+            listCard.appendChild(newDiv);
         }
     })
     total.innerText = '$' + totalPrice.toLocaleString();
 }
 
-function changeQuantity(key, quantity){
-    if(quantity == 0){
+function changeQuantity(key, quantity) {
+    if (quantity == 0) {
         delete listCards[key];
-    }else{
+    } else {
         listCards[key].quantity = quantity;
         listCards[key].price = quantity * products[key].price;
     }
     reloadCard();
 }
 
-total.addEventListener('click', function(event){
+total.addEventListener('click', function (event) {
     listCards = [];
     reloadCard();
 })
+

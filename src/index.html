@@ -15,7 +15,7 @@
         <nav class="navbar">
             <div class="store-logo"><h1>Cav's Shirt Store</h1></div>
             <ul class = "nav-elems">
-                <input type="text" id="input" class= "search-bar" onkeyup="search()" placeholder="Search...">
+                <input type="text" id="input" class= "search-bar" onkeydown="search(event)" placeholder="Search...">
                 <li><a href="index.html" class ="active">Home</a></li>
                 <li><a href="" class = "about">About</a></li>
                 <li class = "cart-icon"><a href="" class = "cart-icon"><i class="fas fa-shopping-cart"></i></a></li>
@@ -39,7 +39,7 @@
 
         <h1 class="pheading">All New Shirts</h1>
 
-        <div class="list">
+        <div class="list" id="list">
           
         </div>
 
