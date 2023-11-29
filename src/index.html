@@ -16,11 +16,21 @@
             <div class="store-logo"><h1>Cav's Shirt Store</h1></div>
             <ul class = "nav-elems">
                 <input type="text" id="input" class= "search-bar" onkeyup="search()" placeholder="Search...">
-                <li><a href="" class = "active">Home</a></li>
-                <li><a href="" class = "">About</a></li>
-                <li><a href="" class = ""><i class="fas fa-shopping-cart"></i></a></li>
+                <li><a href="index.html" class ="active">Home</a></li>
+                <li><a href="" class = "about">About</a></li>
+                <li class = "cart-icon"><a href="" class = "cart-icon"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </nav>
+
+        <div class="cart">
+            <h1>Cart</h1>
+            <ul class="listCart">
+            </ul>
+            <div class="checkOut">
+                <div class="total">0</div>
+                <div class="closeShopping">Close</div>
+            </div>
+        </div>
 
         <section class="welcome-section">
             <h1>Shop for the Newest Arrivals in Shirts</h1>
@@ -29,157 +39,14 @@
 
         <h1 class="pheading">All New Shirts</h1>
 
-        <section class="sec">
-            <div class="products">
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/1.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Lil Tjay Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/2.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Green Workout Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/3.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">White Workout Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/4.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Red Beautiful Lives Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/5.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Gray Tshirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/6.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Yellow Fullsleeves</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/7.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Blue Choir Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/8.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Tan Tshirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/9.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Blue Tshirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/10.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Purple Polo</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/11.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Navy Tshirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/12.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Hawaiian Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-                <!--CARD START-->
-                <div class="card">
-                    <div class="img"><img src="img/13.png" alt=""></div>
-                    <div class="desc">Men</div>
-                    <div class="title">Teal Workout Shirt</div>
-                    <div class="box">
-                        <div class="price">$50</div>
-                        <button class="btn">Add to Cart</button>
-                    </div>
-                </div>
-                <!--CARD END-->
-            </div>
-        </section>
+        <div class="list">
+          
+        </div>
+
 
        
     </main>
-    <script src="index.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
