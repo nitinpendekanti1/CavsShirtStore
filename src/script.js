@@ -141,8 +141,9 @@ function search(event) {
             list.innerHTML = ''
             initApp();
         } else {
-            let inputs = [inputValue];
-            searchResults(inputs);
+            search_engine_gpt(inputValue).then(answer => {
+                searchResults(answer);
+            });
         }
     }
 }
