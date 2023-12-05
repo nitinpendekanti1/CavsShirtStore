@@ -1,3 +1,4 @@
+youtube video: https://www.youtube.com/watch?v=R640_2MYXgI&ab_channel=JoshuaWienecke
 
 The full website is in the "website-with-cnn" branch. It can be run with the python script "app.py", a python
 flask app that renders the HTMLs and creates the CNN. There are a few bugs with the images in this branch.
