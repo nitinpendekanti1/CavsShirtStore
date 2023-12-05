@@ -16,9 +16,31 @@ from tensorflow.keras.applications.vgg16 import preprocess_input
 def resize_images(in_folder, out_folder, target_size=(224, 224)):
     os.makedirs(out_folder, exist_ok=True)
     for filename in os.listdir(in_folder):
-        if filename.endswith('.PNG'):
+        if (filename.endswith('.PNG')) or (filename.endswith('.png')):
             img = Image.open(os.path.join(in_folder, filename)).resize(target_size)
             img.save(os.path.join(out_folder, filename))
+
+# load and preprocess an image using tensorflow.keras functions
+def load_and_preprocess_image(image_path):
+    img = Image.open(image_path)
+
+    # Check if the image has an alpha channel (transparency)
+    if img.mode == 'RGBA':
+        # Convert the image to RGB and add a white background
+        img = img.convert('RGB')
+        img_with_white_background = Image.new('RGB', img.size, (255, 255, 255))
+        img_with_white_background.paste(img, mask=img.split()[3] if len(img.split()) > 3 else None)
+        img = img_with_white_background
+    else:
+        # If the image doesn't have transparency, simply convert it to RGB
+        img = img.convert('RGB')
+
+    # Convert the image to a NumPy array and preprocess for the model
+    img_array = img_to_array(img)
+    img_array = np.expand_dims(img_array, axis=0)
+    img_array = preprocess_input(img_array)
+
+    return img_array
 
 # create tensorflow CNN model
 def create_cnn_model(embedding_size):
@@ -32,16 +54,6 @@ def create_cnn_model(embedding_size):
     model.add(Flatten())
     model.add(Dense(embedding_size, activation='linear'))
     return model
-
-# load and preprocess an image using tensorflow.keras functions
-def load_and_preprocess_image(image_path):
-    img = Image.open(image_path)
-    if img.mode == 'RGBA':
-        img = img.convert('RGB')
-    img_array = img_to_array(img) 
-    img_array = np.expand_dims(img_array, axis=0)
-    img_array = preprocess_input(img_array)
-    return img_array
 
 # create embeddings for a shirt
 def predict_embeddings(image_file, model):
@@ -57,6 +69,18 @@ def predict_embeddings(image_file, model):
     }
 
     return shirt_info
+
+# use model to predict embeddings and
+# create shirts dict with name, embedding, path of each shirt
+def get_shirt_embeddings(images_folder):
+    all_shirts = []
+    for filename in os.listdir(images_folder):
+        if (filename.endswith('.PNG')) or (filename.endswith('.png')):
+            image_path = os.path.join(images_folder, filename)
+            shirt_info = predict_embeddings(image_path, model)
+            all_shirts.append(shirt_info)
+    return all_shirts
+
 
 # compute cosine similarity using NumPy
 def cosine_similarity(embedding1, embedding2):
@@ -76,6 +100,7 @@ def find_top_3(embedding, all_embeddings):
     similarities.sort(key=lambda x: x[1], reverse=True)
     top_3 = similarities[:3]
     return top_3
+
 
 # find the top 3 most similar shirt for 5 random shirts.
 def cosine_scoring_test(all_shirts):
@@ -106,18 +131,6 @@ def cosine_scoring_test(all_shirts):
         })
     return results
 
-# use model to predict embeddings and
-# create shirts dict with name, embedding, path of each shirt
-def get_shirt_embeddings(images_folder):
-    all_shirts = []
-    for filename in os.listdir(images_folder):
-        if filename.endswith('.PNG'):
-            image_path = os.path.join(images_folder, filename)
-            shirt_info = predict_embeddings(image_path, model)
-            all_shirts.append(shirt_info)
-    return all_shirts
-
-
 ### TESTING
 # resize all images to 244x244
 resize_images('static/raw_shirts', 'static/shirts')
@@ -137,12 +150,12 @@ all_shirts = get_shirt_embeddings(images_folder)
 
 # use flask to render the htmls
 import json
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify, redirect, url_for
 app = Flask(__name__)
 
 selectedEmbeddings = []
 
-# home page
+# Home page
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -152,33 +165,56 @@ def index():
 def go_to_cnn():
     return render_template('cnn.html')
 
-# button 1: page to test embeddings
+# Button 1: Page to test embeddings
 @app.route('/test_embeddings')
 def show_results():
     results = cosine_scoring_test(all_shirts)
     return render_template('test_embeddings.html', results=results)
 
-# button 2: page to prompt user for preferences and send to centroid.html
-@app.route('/recommend')
-def start_shopping():
-    prompt_shirts = np.random.choice(all_shirts, 8, replace=False).tolist()
-    return render_template('recommend.html', prompt_shirts=prompt_shirts)
+# Prompt user to choose 3 shirts they like, then send that data to centroid.html
+@app.route('/recommend', methods=['GET', 'POST'])
+def get_recommendations():
+    global selected_shirts
 
-# page to compute centroid and output recommendations
-@app.route('/centroid', methods=['POST'])
-def get_centroid():
-    selected_embeddings = request.get_json().get('embeddings')
-    selected_embeddings_list = json.loads(selected_embeddings)
+    if request.method == 'POST':
+        selected_shirts_data = request.json.get('selectedShirts', [])
+        selected_shirts = selected_shirts_data  # Use the data directly
 
-    # Extract embeddings from the selected shirts
-    selected_embeddings_list = [shirt['embeddings'] for shirt in selected_embeddings]
+        # Additional processing with selected_shirts if needed
 
-    # Calculate the centroid
-    centroid = np.mean(selected_embeddings_list, axis=0)
+        return jsonify({'status': 'success'})
 
-    # Render the page with the centroid information
-    return render_template('centroid.html', centroid=centroid)
+    return render_template('recommend.html', prompt_shirts=all_shirts)
 
-# enable flask debugger
+# find centroid, Display the recommendations, go back home button
+@app.route('/centroid', methods=['POST', 'GET'])
+def calculate_recommendations():
+    global selected_shirts
+
+    # Get the embeddings of the selected shirts
+    selected_embeddings = [shirt['embeddings'] for shirt in selected_shirts]
+
+    # find centroid and the top 3 most similar shirts to the centroid
+    centroid = np.mean(selected_embeddings, axis=0)
+    
+    # Find shirts that were not selected on the recommend.html page
+    remaining_shirts = [shirt for shirt in all_shirts if shirt['name'] not in [selected['name'] for selected in selected_shirts]]
+    
+    top_3_similarities = find_top_3(centroid, [shirt['embeddings'] for shirt in remaining_shirts])
+
+    # extract shirt information for the top 3
+    top_3_info = [
+        {
+            'name': all_shirts[i]['name'],
+            'image': all_shirts[i]['image'],
+            'embeddings': np.round(all_shirts[i]['embeddings'],3).tolist(), 
+            'similarity': np.round(similarity, 4)
+        } for i, similarity in top_3_similarities
+    ]
+
+    # Render centroid.html with the centroid embedding and top 3 similarities
+    return render_template('centroid.html', centroid=centroid, top_3_info=top_3_info)
+
+# Enable Flask debugger
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=False)

@@ -1,0 +1,42 @@
+<!-- Update test_embeddings.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosine Similarity Scoring Test</title>
+</head>
+<body style="background-color: white;">
+
+    <h1 style="font-size: 3em; text-align: center; margin-left: 100px;">Cosine Scoring Test</h1>
+
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; width: 80%; margin: 0 auto;">
+        <div style="display: flex; gap: 10px;">
+            <form action="{{ url_for('index') }}" method="get">
+                <button type="submit">Home</button>
+            </form>
+            <form action="{{ url_for('show_results') }}" method="get">
+                <button type="submit">Regenerate</button>
+            </form>
+        </div>
+        {% for result in results %}
+            <div class="shirt-info" style="text-align: center;">
+                <h2>{{ result['shirt_name'] }}</h2>
+                <img src="{{ result['shirt_image'] }}" alt="Shirt Image">
+                <p>Top 3 Similar Shirts:</p>
+                <div class="similar-shirts-grid" style="display: flex; justify-content: space-around; width: 100%;">
+                    {% for similar_shirt in result['top_3_similarities'] %}
+                        <div class="similar-shirt" style="width: 280px; text-align: center; margin: 5px; padding: 10px; border: 1px solid #ddd;">
+                            <h3>{{ loop.index }}. {{ similar_shirt['name'] }}</h3>
+                            <img src="{{ similar_shirt['image'] }}" alt="Similar Shirt Image">
+                            <p>Embeddings: {{ similar_shirt['embeddings'] }}</p>
+                            <p>Cosine Similarity: {{ similar_shirt['similarity'] }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</body>
+</html>

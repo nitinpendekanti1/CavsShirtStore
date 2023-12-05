@@ -1,0 +1,37 @@
+<!-- recommend.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendations Page</title>
+</head>
+
+<body style="background-color: rgb(251, 251, 251); text-align: center;">
+
+    <h1 style="font-size: 2em;">Welcome to the Shopping Recommendations Page</h1>
+
+    <form action="{{ url_for('index') }}" method="get">
+        <button type="submit">Home</button>
+    </form>
+
+    <form id="selectShirtsForm" action="{{ url_for('get_recommendations') }}" method="post" style="text-align: center;">
+        <h2>Please choose at least 3 shirts you like</h2>
+        <button type="button" id="continue-button" style="display: none; width: 400px; margin: 10px; margin: auto;"
+            onclick="handleRecommendationSubmission()">Continue</button>
+        <div id="shirt-container" class="similar-shirts">
+            {% for shirt in prompt_shirts %}
+            <div class="shirt" onclick="toggleBluescale(this, '{{ shirt.name }}', '{{ shirt.image }}', '{{ shirt.embeddings }}')">
+                <img src="{{ shirt['image'] }}" alt="Shirt Image">
+                <input type="hidden" name="selectedShirts" value="{{ shirt.name }}">
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

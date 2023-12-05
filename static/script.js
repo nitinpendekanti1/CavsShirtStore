@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 let selectedShirts = [];
 
 async function fetchShirtData() {
-    const response = await fetch('/');
+    const response = await fetch('/recommend');
     const shirtData = await response.json();
     displayShirts(shirtData);
 }
@@ -14,10 +14,16 @@ async function fetchShirtData() {
 function displayShirts(shirts) {
     const container = document.getElementById('shirt-container');
 
-    for (let i = 0; i < Math.min(shirts.length, 5); i++) {
+    for (let i = 0; i < Math.min(shirts.length, 8); i++) {
         const shirt = shirts[i];
         const shirtCard = document.createElement('div');
         shirtCard.className = 'shirt';
+
+        shirtCard.innerHTML = `
+            <h2>${shirt.name}</h2>
+            <img src="${shirt.image}" alt="Shirt Image">
+            <input type="hidden" name="selectedShirts" value="${shirt.name}">
+        `;
 
         shirtCard.addEventListener('click', function () {
             toggleBluescale(this, shirt.name, shirt.image, shirt.embeddings);
@@ -30,7 +36,7 @@ function displayShirts(shirts) {
 function toggleBluescale(element, name, image, embeddings) {
     element.classList.toggle('bluescaled');
 
-    const selectedShirt = { name, image, embeddings };
+    const selectedShirt = { name, image, embeddings: JSON.parse(embeddings) };
 
     if (element.classList.contains('bluescaled')) {
         selectedShirts.push(selectedShirt);
@@ -48,9 +54,6 @@ function toggleBluescale(element, name, image, embeddings) {
     }
 
     console.log("Selected Shirts:", selectedShirts);
-
-    // Update the selected shirts input value
-    document.getElementById('selected-shirts-input').value = JSON.stringify(selectedShirts.map(shirt => shirt.embeddings));
 }
 
 function showContinueButton() {
@@ -63,23 +66,21 @@ function hideContinueButton() {
     continueButton.style.display = 'none';
 }
 
-// Modify the get_centroid function to handle the AJAX request directly
-function get_centroid() {
-    const embeddingsInput = document.getElementById('selected-shirts-input');
-    const embeddings = JSON.parse(embeddingsInput.value);
-
-    // Make an AJAX request to the '/centroid' endpoint
-    fetch('/centroid', {
+function handleRecommendationSubmission() {
+    // Send selectedShirts to the server for recommendation calculation
+    fetch('/recommend', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ embeddings }),
+        body: JSON.stringify({ selectedShirts }),
     })
     .then(response => response.json())
     .then(data => {
-        // Handle the response as needed
-        console.log(data);
+        // Redirect to centroid.html with the centroid embedding
+        window.location.href = '/centroid';
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }

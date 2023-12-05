@@ -1,0 +1,41 @@
+end goal: recommender
+My idea is to prompt the user to select some shirts they like, then
+recommend similar shirts based off of embeddings created by a CNN.
+
+
+
+1. Read in shirt data
+"resize_rename_images" reads the 23 shirt images under /static/raw_shirts
+it resizes them all to 244x244 and renames them
+
+2. Get the embeddings
+I made a tensorflow CNN. In the "predict_embeddings"
+function, I create each embedding using the models
+predict function (model.predict)
+
+
+12/3/2023
+1. fix shirt images to work with CNN
+2. Add a recommendations page (recommend.html):
+- allow the user to choose 3 of 10 randomly chosen shirts that are displayed to the screen
+- when 3 are chosen, a continue button appears at the top
+- find the centroid of the embeddings for the 3 shirts
+- find the top 5 most similar shirts to the centroid with cosine scoring
+- when continue is clicked, redirect to centroid.html
+- on centroid.html, output centroid embedding
+
+
+The flow of the program is like this: the user starts on index, they click 
+on go to cnn button to redirect to the cnn.html, then they click on start
+shopping, and get to choose 3 out of 10 items, once 3 items are chosen, they
+can click a continue button to redirect to index.html. The centroid of the
+embeddings of the 3 items they chose needs to be calculated, and the top 3
+most similar items to the centroid need to be found. Index.html should 
+appear similar, but now filters out any items not in the top 3 items after
+the redirect.
+
+
+
+
+
+

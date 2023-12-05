@@ -7,6 +7,8 @@
     <title>Cav's Shirt Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ url_for('static', filename='search_engine_gpt.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 
@@ -15,9 +17,9 @@
         <nav class="navbar">
             <div class="store-logo"><h1>Cav's Shirt Store</h1></div>
             <ul class = "nav-elems">
-                <input type="text" id="input" class= "search-bar" onkeyup="search()" placeholder="Search...">
-                <li><a href="index.html" class ="active">Home</a></li>
-                <li><a href="" class = "about">About</a></li>
+                <input type="text" id="input" class= "search-bar" onkeydown="search(event)" placeholder="Search...">
+                <li><a href="{{ url_for('get_recommendations') }}" class="active">Get Recommendations</a></li>
+                <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
                 <li class = "cart-icon"><a href="" class = "cart-icon"><i class="fas fa-shopping-cart"></i></a></li>
             </ul>
         </nav>
@@ -32,6 +34,7 @@
             </div>
         </div>
 
+
         <section class="welcome-section">
             <h1>Shop for the Newest Arrivals in Shirts</h1>
             <p>The Best Selections of Shirts in College Station</p>
@@ -39,14 +42,10 @@
 
         <h1 class="pheading">All New Shirts</h1>
 
-        <div class="list">
-          
+        <div class="list" id="list">
         </div>
 
-        <form action="{{ url_for('go_to_cnn') }}" method="get">
-            <button type="submit">Go to CNN</button>
-        </form>
-       
+
     </main>
     <script src="{{ url_for('static', filename='index.js') }}"></script>
 </body>

@@ -1,0 +1,63 @@
+/* static/style.css */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: rgb(251, 251, 251); /* Lighter background color */
+    color: #424144; /* Darker text color */
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+button {
+    padding: 30px 40px;
+    font-size: 24px;
+    box-shadow: 5px 12px 16px rgba(0, 0, 0, 0.1); /* Add box shadow for a subtle shadow effect */
+}
+
+button:hover {
+    background-color: rgb(123, 255, 123);
+}
+
+button:active {
+    box-shadow: 5px 12px 16px rgba(4, 103, 189, 0.5); /* Adjust shadow for the pressed effect */
+    transform: translateY(4px); /* Add a slight translateY for a pressed-down effect */
+}
+
+/* New styles for horizontally aligning similar shirts */
+.shirt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 30%; /* Set the width to 30% for a three-column layout */
+    margin: 10px;
+    text-align: center;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+
+.shirt.bluescaled {
+    background-color: rgb(128, 201, 225);
+}
+
+.similar-shirts {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.similar-shirt {
+    width: 30%; /* Adjust the width as needed */
+    margin: 10px;
+    text-align: center;
+}
